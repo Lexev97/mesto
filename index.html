@@ -11,7 +11,23 @@
       <div class="logo"></div>
     </header>
     <main class="content">
-      <section class="profile"></section>
+      <section class="profile" aria-label="Пользователь">
+        <figure class="profile__avatar">
+          <img
+            class="profile__image"
+            src="./images/kusto.jpg"
+            alt="Аватар пользователя"
+          />
+        </figure>
+        <div class="profile__info">
+          <h1 class="profile__name">
+            Жак-Ив Кусто<button class="profile__edit"></button>
+          </h1>
+
+          <p class="profile__description">Исследователь океана</p>
+        </div>
+        <button class="profile__add"></button>
+      </section>
       <section class="elements"></section>
     </main>
     <footer class="footer"></footer>

@@ -1,9 +1,17 @@
 .profile {
-    width: 100%;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 40px 0 50px 0;
-    gap: 30px; 
-    flex-wrap: wrap;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 40px 0 50px 0;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+@media screen and (max-width: 710px) {
+  .profile {
+    flex-direction: column;
+    gap: 26px;
+    padding: 40px 0 36px 0;
+  }
 }

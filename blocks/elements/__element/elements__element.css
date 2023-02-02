@@ -2,8 +2,7 @@
   position: relative;
   overflow: hidden;
   display: flex;
-  flex-direction: column;
-  max-width: 282px;
+  flex-direction: column;  
   max-height: 361px;
   border-radius: 10px;
   background-color: #fff;

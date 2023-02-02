@@ -1,0 +1,9 @@
+.elements__heart {
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+    flex-shrink: 0;
+}
+
+.elements__heart:hover {
+    opacity: 0.5;
+}

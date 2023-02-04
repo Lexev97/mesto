@@ -1,6 +1,16 @@
 .elements__heart {
+  box-sizing: border-box;
   cursor: pointer;
   transition: opacity 0.3s ease;
+  border: 0;
+  width: 23px;
+  height: 19px;
+  background-color: transparent;
+  background-image: url(../../../images/heart-icon.svg);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  padding: 0;
   flex-shrink: 0;
 }
 

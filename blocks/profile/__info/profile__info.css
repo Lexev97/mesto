@@ -1,11 +1,11 @@
 .profile__info {
-    display: flex;
-    flex-direction: column;
-    gap: 9px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
 }
 
 @media screen and (max-width: 710px) {
-    .profile__info {
-      align-items: center;
-    }
+  .profile__info {
+    align-items: center;
   }
+}

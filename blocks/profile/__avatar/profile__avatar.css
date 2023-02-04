@@ -1,8 +1,8 @@
 .profile__avatar {
-    position: relative;
-    overflow: hidden;
-    border-radius: 50%;
-    max-width: 120px;
-    max-height: 120px;
-    margin: 0;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+  max-width: 120px;
+  max-height: 120px;
+  margin: 0;
 }

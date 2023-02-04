@@ -20,5 +20,5 @@ JavaScript, HTML5, CSS3, БЭМ, flex, адаптивная верстка.
 
 **Ссылка на GitHub Pages**
 
-https://lexev97.github.io/russian-travel/index.html
+https://lexev97.github.io/mesto/index.html
 

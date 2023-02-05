@@ -7,7 +7,7 @@
 
 @media screen and (max-width: 710px) {
   .profile__name-area {
-    justify-content: flex-end;
+    justify-content: center;
     transform: translate(12px);
     gap: 11px;
   }

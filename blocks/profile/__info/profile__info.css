@@ -3,11 +3,11 @@
   flex-direction: column;
   gap: 9px;
   overflow: hidden;
+  margin: auto 0;
 }
 
 @media screen and (max-width: 710px) {
   .profile__info {
-    align-items: center;
-    overflow: visible;
+    padding: 0 15px;
   }
 }

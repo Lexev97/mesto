@@ -20,6 +20,7 @@
 @import url(../blocks/elements/__element/elements__element.css);
 @import url(../blocks/elements/__caption/elements__caption.css);
 @import url(../blocks/elements/__heart/elements__heart.css);
+@import url(../blocks/elements/__heart/_liked/elements__heart_liked.css);
 @import url(../blocks/elements/__image/elements__image.css);
 @import url(../blocks/elements/__name/elements__name.css);
 /* Footer */

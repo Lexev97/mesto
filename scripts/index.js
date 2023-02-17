@@ -59,7 +59,7 @@ const closeEditModal = () => {
   editModal.classList.remove("popup__opened");
   nameInput.value = "";
   descriptionInput.value = "";
-}
+};
 
 const saveDataHandler = (e) => {
   e.preventDefault();
@@ -75,7 +75,12 @@ const saveDataHandler = (e) => {
     renderCards();
     closeEditModal();
   }
-}
+};
+
+const likePlaceHandler = (e) => {
+  console.log("работает");
+  e.target.classList.toggle("elements__heart_liked");
+};
 
 const renderCards = () => {
   if (cardsGrid.childElementCount === 0) {
@@ -85,7 +90,9 @@ const renderCards = () => {
         .cloneNode(true);
       placeCard.querySelector(".elements__image").src = item.link;
       placeCard.querySelector(".elements__name").textContent = item.name;
-
+      placeCard
+        .querySelector(".elements__heart")
+        .addEventListener("click", likePlaceHandler);
       cardsGrid.append(placeCard);
     });
   } else if (cardsGrid.childElementCount < initialCards.length) {
@@ -95,10 +102,13 @@ const renderCards = () => {
     placeCard.querySelector(".elements__image").src = initialCards[0].link;
     placeCard.querySelector(".elements__name").textContent =
       initialCards[0].name;
+    placeCard
+      .querySelector(".elements__heart")
+      .addEventListener("click", likePlaceHandler);
 
     cardsGrid.prepend(placeCard);
   }
-}
+};
 
 editButton.addEventListener("click", showModal);
 addNewPlaceButton.addEventListener("click", showModal);

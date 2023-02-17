@@ -1,3 +1,12 @@
+@keyframes show_up {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .popup {
   position: fixed;
   display: none;
@@ -9,4 +18,5 @@
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
   padding: 19px;
+  animation: show_up 0.3s ease;
 }

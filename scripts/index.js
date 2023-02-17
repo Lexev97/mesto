@@ -46,14 +46,15 @@ const initialCards = [
 ];
 
 const showModalHandler = (e) => {
+  editModal.classList.remove("fade-out");
+  editModal.classList.add("popup_opened");
+
   if (e.target.classList.value === "profile__edit") {
-    editModal.classList.add("popup_opened");
     popupTitle.textContent = "Редактировать профиль";
     nameInput.value = profileName.innerText;
     descriptionInput.value = description.innerText;
     saveButtonModal.textContent = "Сохранить";
   } else {
-    editModal.classList.add("popup_opened");
     popupTitle.textContent = "Новое место";
     nameInput.placeholder = "Название";
     descriptionInput.placeholder = "Ссылка на картинку";
@@ -62,21 +63,28 @@ const showModalHandler = (e) => {
 };
 
 const openImageHandler = (e) => {
+  imageModal.classList.remove("fade-out");
   imageModal.classList.add("popup-img_opened");
   fullSizeImage.src = e.target.src;
   fullSizeImage.alt = e.target.alt;
   imageCaption.textContent = e.target.alt;
-}
+};
 
 const closeEditModalHandler = () => {
-  editModal.classList.remove("popup_opened");
-  nameInput.value = "";
-  descriptionInput.value = "";
+  editModal.classList.add("fade-out");
+  setTimeout(() => {
+    editModal.classList.remove("popup_opened");
+    nameInput.value = "";
+    descriptionInput.value = "";
+  }, 300);
 };
 
 const closeImgModalHandler = () => {
-  imageModal.classList.remove("popup-img_opened");
-}
+  imageModal.classList.add("fade-out");
+  setTimeout(() => {
+    imageModal.classList.remove("popup-img_opened");
+  }, 300);
+};
 
 const saveDataHandler = (e) => {
   e.preventDefault();
@@ -110,8 +118,8 @@ const renderTheCard = (card) => {
   placeCard.querySelector(".elements__name").textContent = card.name;
   placeCard.querySelector(".elements__image").alt = card.name;
   placeCard
-  .querySelector(".elements__image")
-  .addEventListener("click", openImageHandler);
+    .querySelector(".elements__image")
+    .addEventListener("click", openImageHandler);
   placeCard
     .querySelector(".elements__heart")
     .addEventListener("click", likePlaceHandler);
@@ -124,7 +132,7 @@ const renderTheCard = (card) => {
 editButton.addEventListener("click", showModalHandler);
 addNewPlaceButton.addEventListener("click", showModalHandler);
 closeButton.addEventListener("click", closeEditModalHandler);
-closeImgButton.addEventListener("click", closeImgModalHandler)
+closeImgButton.addEventListener("click", closeImgModalHandler);
 popupForm.addEventListener("submit", saveDataHandler);
 
 initialCards.forEach((item) => {

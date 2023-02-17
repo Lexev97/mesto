@@ -1,7 +1,6 @@
 .elements__heart {
   box-sizing: border-box;
   cursor: pointer;
-  transition: opacity 0.3s ease;
   border: 0;
   width: 23px;
   height: 19px;

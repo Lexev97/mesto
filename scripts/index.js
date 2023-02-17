@@ -68,46 +68,37 @@ const saveDataHandler = (e) => {
     description.textContent = descriptionInput.value;
     closeEditModal();
   } else {
-    initialCards.unshift({
+    const newCard = {
       name: nameInput.value,
       link: descriptionInput.value,
-    });
-    renderCards();
+    };
+    renderTheCard(newCard);
     closeEditModal();
   }
 };
 
+const deleteCardHandler = (e) => {
+  e.target.closest(".elements__element").remove();
+};
+
 const likePlaceHandler = (e) => {
-  console.log("работает");
   e.target.classList.toggle("elements__heart_liked");
 };
 
-const renderCards = () => {
-  if (cardsGrid.childElementCount === 0) {
-    initialCards.forEach((item) => {
-      const placeCard = placeCardTemplate
-        .querySelector(".elements__element")
-        .cloneNode(true);
-      placeCard.querySelector(".elements__image").src = item.link;
-      placeCard.querySelector(".elements__name").textContent = item.name;
-      placeCard
-        .querySelector(".elements__heart")
-        .addEventListener("click", likePlaceHandler);
-      cardsGrid.append(placeCard);
-    });
-  } else if (cardsGrid.childElementCount < initialCards.length) {
-    const placeCard = placeCardTemplate
-      .querySelector(".elements__element")
-      .cloneNode(true);
-    placeCard.querySelector(".elements__image").src = initialCards[0].link;
-    placeCard.querySelector(".elements__name").textContent =
-      initialCards[0].name;
-    placeCard
-      .querySelector(".elements__heart")
-      .addEventListener("click", likePlaceHandler);
-
-    cardsGrid.prepend(placeCard);
-  }
+const renderTheCard = (card) => {
+  const placeCard = placeCardTemplate
+    .querySelector(".elements__element")
+    .cloneNode(true);
+  placeCard.querySelector(".elements__image").src = card.link;
+  placeCard.querySelector(".elements__name").textContent = card.name;
+  placeCard.querySelector(".elements__image").alt = card.name;
+  placeCard
+    .querySelector(".elements__heart")
+    .addEventListener("click", likePlaceHandler);
+  placeCard
+    .querySelector(".elements__trashcan")
+    .addEventListener("click", deleteCardHandler);
+  cardsGrid.prepend(placeCard);
 };
 
 editButton.addEventListener("click", showModal);
@@ -115,4 +106,6 @@ addNewPlaceButton.addEventListener("click", showModal);
 closeButton.addEventListener("click", closeEditModal);
 popupForm.addEventListener("submit", saveDataHandler);
 
-renderCards();
+initialCards.forEach((item) => {
+  renderTheCard(item);
+});

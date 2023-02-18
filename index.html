@@ -28,24 +28,39 @@
       <ul class="elements__grid"></ul>
     </section>
   </main>
-  <section class="popup" aria-label="Модальное окно">
+
+  <section class="profile-popup popup" aria-label="Модальное окно для редактирование профиля">
     <div class="popup__container">
       <h2 class="popup__title">Редактировать профиль</h2>
       <form class="popup__form" name="modal-form">
         <input class="popup__input" type="text" id="name" name="name" />
         <input class="popup__input" type="text" id="description" name="description" />
-        <button type="submit" class="popup__save"></button>
+        <button type="submit" class="popup__save">Сохранить</button>
       </form>
       <button type="button" class="popup__close" aria-label="Закрыть"></button>
     </div>
   </section>
-  <section class="popup-img" aria-label="Просмотр картинки">
-    <div class="popup-img__container">
-      <img class="popup-img__image" src="none" alt="none" />
-      <p class="popup-img__caption"></p>
-      <button type="button" class="popup-img__close" aria-label="Закрыть"></button>
+
+  <section class="card-popup popup" aria-label="Модальное окно для создания карточки">
+    <div class="popup__container">
+      <h2 class="popup__title">Новое место</h2>
+      <form class="popup__form" name="modal-form">
+        <input class="popup__input" type="text" id="place-name" name="place-name" placeholder="Название" />
+        <input class="popup__input" type="text" id="img-link" name="img-link" placeholder="Ссылка на картинку" />
+        <button type="submit" class="popup__save">Создать</button>
+      </form>
+      <button type="button" class="popup__close" aria-label="Закрыть"></button>
     </div>
   </section>
+
+  <section class="image-popup popup" aria-label="Просмотр картинки">
+    <div class="popup__img-container">
+      <img class="popup__image" src="./images/" alt="none" />
+      <p class="popup__caption"></p>
+      <button type="button" class="popup__close" aria-label="Закрыть"></button>
+    </div>
+  </section>
+
   <footer class="footer">
     <p class="footer__copyright">© 2020 Mesto Russia</p>
   </footer>

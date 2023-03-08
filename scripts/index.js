@@ -126,6 +126,7 @@ submitCardPopupButton.addEventListener("submit", handleCardFormSubmit);
 closeButtons.forEach((button) => {
   const popup = button.closest(".popup");
   button.addEventListener("click", () => closePopup(popup));
+  popup.addEventListener("click", () => closePopup(popup));
 });
 
 initialCards.forEach(renderCard);

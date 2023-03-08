@@ -5,7 +5,8 @@ const profileDescription = document.querySelector(".profile__description");
 
 const profilePopup = document.querySelector(".profile-popup");
 const profileNameInput = profilePopup.querySelector("#name-input");
-const profileDescriptionInput = profilePopup.querySelector("#description-input");
+const profileDescriptionInput =
+  profilePopup.querySelector("#description-input");
 const submitProfilePopupButton = profilePopup.querySelector(".popup__form");
 
 const cardPopup = document.querySelector(".card-popup");
@@ -50,6 +51,11 @@ const initialCards = [
 
 const openPopup = (popup) => {
   popup.classList.add("popup_opened");
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      closePopup(popup);
+    }
+  });
 };
 const openProfilePopup = (e) => {
   profileNameInput.value = profileName.textContent;
@@ -66,6 +72,11 @@ const openImagePopup = (e) => {
 
 const closePopup = (popup) => {
   popup.classList.remove("popup_opened");
+  document.removeEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      closePopup(popup);
+    }
+  });
 };
 
 const handleProfileFormSubmit = (e) => {
@@ -126,7 +137,11 @@ submitCardPopupButton.addEventListener("submit", handleCardFormSubmit);
 closeButtons.forEach((button) => {
   const popup = button.closest(".popup");
   button.addEventListener("click", () => closePopup(popup));
-  popup.addEventListener("click", () => closePopup(popup));
+  popup.addEventListener("click", (e) => {
+    if (e.target.tagName === "SECTION") {
+      closePopup(popup);
+    }
+  });
 });
 
 initialCards.forEach(renderCard);

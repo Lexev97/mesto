@@ -49,13 +49,16 @@ const initialCards = [
   },
 ];
 
+const closeByEscape = (evt) => {
+  if (evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened');
+    closePopup(openedPopup);
+  }
+}
+
 const openPopup = (popup) => {
   popup.classList.add("popup_opened");
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      closePopup(popup);
-    }
-  });
+  document.addEventListener("keydown", closeByEscape);
 };
 const openProfilePopup = (e) => {
   profileNameInput.value = profileName.textContent;
@@ -72,11 +75,7 @@ const openImagePopup = (e) => {
 
 const closePopup = (popup) => {
   popup.classList.remove("popup_opened");
-  document.removeEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      closePopup(popup);
-    }
-  });
+  document.removeEventListener("keydown", closeByEscape);
 };
 
 const handleProfileFormSubmit = (e) => {
@@ -94,6 +93,7 @@ const handleCardFormSubmit = (e) => {
   renderCard(newCard);
   e.target.reset();
   closePopup(cardPopup);
+  
 };
 
 const deleteCard = (e) => {
@@ -138,7 +138,7 @@ closeButtons.forEach((button) => {
   const popup = button.closest(".popup");
   button.addEventListener("click", () => closePopup(popup));
   popup.addEventListener("click", (e) => {
-    if (e.target.tagName === "SECTION") {
+    if (e.target.classList.contains('popup_opened')) {
       closePopup(popup);
     }
   });

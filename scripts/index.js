@@ -4,8 +4,8 @@ const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
 
 const profilePopup = document.querySelector(".profile-popup");
-const profileNameInput = profilePopup.querySelector("#name");
-const profileDescriptionInput = profilePopup.querySelector("#description");
+const profileNameInput = profilePopup.querySelector("#name-input");
+const profileDescriptionInput = profilePopup.querySelector("#description-input");
 const submitProfilePopupButton = profilePopup.querySelector(".popup__form");
 
 const cardPopup = document.querySelector(".card-popup");

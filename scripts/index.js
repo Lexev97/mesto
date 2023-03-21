@@ -50,11 +50,11 @@ const initialCards = [
 ];
 
 const closeByEscape = (evt) => {
-  if (evt.key === 'Escape') {
-    const openedPopup = document.querySelector('.popup_opened');
+  if (evt.key === "Escape") {
+    const openedPopup = document.querySelector(".popup_opened");
     closePopup(openedPopup);
   }
-}
+};
 
 const openPopup = (popup) => {
   popup.classList.add("popup_opened");
@@ -93,7 +93,6 @@ const handleCardFormSubmit = (e) => {
   renderCard(newCard);
   e.target.reset();
   closePopup(cardPopup);
-  
 };
 
 const deleteCard = (e) => {
@@ -138,7 +137,7 @@ closeButtons.forEach((button) => {
   const popup = button.closest(".popup");
   button.addEventListener("click", () => closePopup(popup));
   popup.addEventListener("click", (e) => {
-    if (e.target.classList.contains('popup_opened')) {
+    if (e.target.classList.contains("popup_opened")) {
       closePopup(popup);
     }
   });

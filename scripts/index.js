@@ -3,7 +3,7 @@ import FormValidator from "./FormValidator.js";
 
 const selectors = {
   typeErrorMod: "popup__input_type_error",
-  errorActiveMod: "popup__input_type_error",
+  errorActiveMod: "popup__input-error_active",
   btnDisabledMod: "popup__save_disabled",
 };
 
@@ -118,8 +118,12 @@ closeButtons.forEach((button) => {
   });
 });
 
-// initialCards.forEach(renderCard);
-// forms.forEach((item) => {
-//   const formValidator = new FormValidator(selectors, item.id);
-//   console.log(formValidator)
-// });
+initialCards.forEach(renderCard);
+forms
+  .map((item) => {
+    return "#" + item.id;
+  })
+  .forEach((id) => {
+    const formValidator = new FormValidator(selectors, id);
+    formValidator.enableValidation();
+  });

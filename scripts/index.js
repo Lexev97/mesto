@@ -55,16 +55,13 @@ const initialCards = [
   },
 ];
 
-const closeByEscape = (evt) => {
-  if (evt.key === "Escape") {
-    const openedPopup = document.querySelector(".popup_opened");
-    closePopup(openedPopup);
-  }
-};
-
-const openPopup = (popup) => {
+export const openPopup = (popup) => {
   popup.classList.add("popup_opened");
-  document.addEventListener("keydown", closeByEscape);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      closePopup(popup);
+    }
+  });
 };
 
 const openProfilePopup = (e) => {
@@ -76,7 +73,11 @@ const openCardPopup = () => openPopup(cardPopup);
 
 const closePopup = (popup) => {
   popup.classList.remove("popup_opened");
-  document.removeEventListener("keydown", closeByEscape);
+  document.removeEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      closePopup(popup);
+    }
+  });
 };
 
 const handleProfileFormSubmit = (e) => {
@@ -111,7 +112,7 @@ closeButtons.forEach((button) => {
   const popup = button.closest(".popup");
   button.addEventListener("click", () => closePopup(popup));
   popup.addEventListener("click", (e) => {
-    if (e.target.classList.contains("popup_opened")) {
+    if (e.target.tagName === "SECTION") {
       closePopup(popup);
     }
   });

@@ -49,7 +49,6 @@ class Card {
   }
 
   _openImagePopup(e) {
-    console.log(e);
     fullSizeImage.src = e.target.src;
     fullSizeImage.alt = e.target.alt;
     fullSizeImageCaption.textContent = e.target.alt;

@@ -1,4 +1,13 @@
 import Card from "./Card.js";
+import FormValidator from "./FormValidator.js";
+
+const selectors = {
+  typeErrorMod: "popup__input_type_error",
+  errorActiveMod: "popup__input_type_error",
+  btnDisabledMod: "popup__save_disabled",
+};
+
+const forms = Array.from(document.forms);
 
 const editProfileButton = document.querySelector(".profile__edit");
 const addNewPlaceButton = document.querySelector(".profile__add");
@@ -16,13 +25,8 @@ const placeNameInput = cardPopup.querySelector("#place-name");
 const imgLinkInput = cardPopup.querySelector("#img-link");
 const submitCardPopupButton = cardPopup.querySelector(".popup__form");
 
-// const imagePopup = document.querySelector(".image-popup");
-// const fullSizeImage = imagePopup.querySelector(".popup__image");
-// const fullSizeImageCaption = imagePopup.querySelector(".popup__caption");
-
 const closeButtons = document.querySelectorAll(".popup__close");
 
-// const placeCardTemplate = document.querySelector("#place-card").content;
 const cardsGrid = document.querySelector(".elements__grid");
 const initialCards = [
   {
@@ -66,12 +70,6 @@ const openProfilePopup = (e) => {
   openPopup(profilePopup);
 };
 const openCardPopup = () => openPopup(cardPopup);
-// const openImagePopup = (e) => {
-//   fullSizeImage.src = e.target.src;
-//   fullSizeImage.alt = e.target.alt;
-//   fullSizeImageCaption.textContent = e.target.alt;
-//   openPopup(imagePopup);
-// };
 
 const closePopup = (popup) => {
   popup.classList.remove("popup_opened");
@@ -99,72 +97,6 @@ const handleCardFormSubmit = (e) => {
   closePopup(cardPopup);
 };
 
-// class Card {
-//   constructor(data, templateSelector) {
-//     this._name = data.name;
-//     this._link = data.link;
-//     this._templateSelector = templateSelector;
-//   }
-
-//   _getTemplate() {
-//     const cardElement = document
-//       .querySelector(this._templateSelector)
-//       .content.querySelector(".elements__element")
-//       .cloneNode(true);
-
-//     return cardElement;
-//   }
-
-//   createCard() {
-//     this._element = this._getTemplate();
-//     this._cardImage = this._element.querySelector(".elements__image");
-//     this._setEventListeners();
-
-//     this._cardImage.src = this._link;
-//     this._cardImage.alt = this._name;
-//     this._element.querySelector(".elements__name").textContent = this._name;
-
-//     return this._element;
-//   }
-
-//   _setEventListeners() {
-//     this._cardImage.addEventListener("click", openImagePopup);
-//     this._element
-//       .querySelector(".elements__heart")
-//       .addEventListener("click", toggleLike);
-//     this._element
-//       .querySelector(".elements__trashcan")
-//       .addEventListener("click", deleteCard);
-//   }
-// }
-
-// const deleteCard = (e) => {
-//   e.target.closest(".elements__element").remove();
-// };
-
-// const toggleLike = (e) => {
-//   e.target.classList.toggle("elements__heart_liked");
-// };
-
-// const createCard = (card) => {
-//   const placeCard = placeCardTemplate
-//     .querySelector(".elements__element")
-//     .cloneNode(true);
-//   const cardImage = placeCard.querySelector(".elements__image");
-//   cardImage.src = card.link;
-//   cardImage.alt = card.name;
-//   placeCard.querySelector(".elements__name").textContent = card.name;
-//   cardImage.addEventListener("click", openImagePopup);
-//   placeCard
-//     .querySelector(".elements__heart")
-//     .addEventListener("click", toggleLike);
-//   placeCard
-//     .querySelector(".elements__trashcan")
-//     .addEventListener("click", deleteCard);
-
-//   return placeCard;
-// };
-
 const renderCard = (card) => {
   const newCard = new Card(card, "#place-card");
   cardsGrid.prepend(newCard.createCard());
@@ -186,4 +118,8 @@ closeButtons.forEach((button) => {
   });
 });
 
-initialCards.forEach(renderCard);
+// initialCards.forEach(renderCard);
+// forms.forEach((item) => {
+//   const formValidator = new FormValidator(selectors, item.id);
+//   console.log(formValidator)
+// });

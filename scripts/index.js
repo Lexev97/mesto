@@ -2,6 +2,8 @@ import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
 
 const selectors = {
+  inputElement: ".popup__input",
+  saveBtnElement: ".popup__save",
   typeErrorMod: "popup__input_type_error",
   errorActiveMod: "popup__input-error_active",
   btnDisabledMod: "popup__save_disabled",
@@ -57,10 +59,10 @@ const initialCards = [
 
 const closeByEsc = (e) => {
   if (e.key === "Escape") {
-    const openedPopup = document.querySelector('.popup_opened');
+    const openedPopup = document.querySelector(".popup_opened");
     closePopup(openedPopup);
   }
-}
+};
 
 export const openPopup = (popup) => {
   popup.classList.add("popup_opened");
@@ -98,7 +100,7 @@ const handleCardFormSubmit = (e) => {
 
 const createCard = (card, cardId) => {
   return new Card(card, cardId);
-}
+};
 
 const renderCard = (card) => {
   const newCard = createCard(card, "#place-card");
@@ -115,18 +117,14 @@ closeButtons.forEach((button) => {
   const popup = button.closest(".popup");
   button.addEventListener("click", () => closePopup(popup));
   popup.addEventListener("click", (e) => {
-    if (e.target.classList.contains('popup')) {
+    if (e.target.classList.contains("popup")) {
       closePopup(popup);
     }
   });
 });
 
 initialCards.forEach(renderCard);
-forms
-  .map((item) => {
-    return "#" + item.id;
-  })
-  .forEach((id) => {
-    const formValidator = new FormValidator(selectors, id);
+forms.forEach((formElement) => {
+    const formValidator = new FormValidator(selectors, formElement);
     formValidator.enableValidation();
   });

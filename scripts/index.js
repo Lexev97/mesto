@@ -55,13 +55,16 @@ const initialCards = [
   },
 ];
 
+const closeByEsc = (e) => {
+  if (e.key === "Escape") {
+    const openedPopup = document.querySelector('.popup_opened');
+    closePopup(openedPopup);
+  }
+}
+
 export const openPopup = (popup) => {
   popup.classList.add("popup_opened");
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      closePopup(popup);
-    }
-  });
+  document.addEventListener("keydown", closeByEsc);
 };
 
 const openProfilePopup = (e) => {
@@ -73,11 +76,7 @@ const openCardPopup = () => openPopup(cardPopup);
 
 const closePopup = (popup) => {
   popup.classList.remove("popup_opened");
-  document.removeEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      closePopup(popup);
-    }
-  });
+  document.removeEventListener("keydown", closeByEsc);
 };
 
 const handleProfileFormSubmit = (e) => {

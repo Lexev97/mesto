@@ -33,34 +33,34 @@ class Card {
   }
 
   _setEventListeners() {
-    this._cardImage.addEventListener("click", (e) => {
-      this._openImagePopup(e);
+    this._cardImage.addEventListener("click", () => {
+      this._openImagePopup();
     });
     this._element
-      .querySelector(".elements__heart")
-      .addEventListener("click", (e) => {
-        this._toggleLike(e);
-      });
-    this._element
       .querySelector(".elements__trashcan")
-      .addEventListener("click", (e) => {
-        this._deleteCard(e);
+      .addEventListener("click", () => {
+        this._deleteCard();
       });
+    this._buttonLike = this._element.querySelector(".elements__heart");
+    this._buttonLike.addEventListener("click", () => {
+      this._toggleLike();
+    });
   }
 
-  _openImagePopup(e) {
-    fullSizeImage.src = e.target.src;
-    fullSizeImage.alt = e.target.alt;
-    fullSizeImageCaption.textContent = e.target.alt;
+  _openImagePopup() {
+    fullSizeImage.src = this._link;
+    fullSizeImage.alt = this._name;
+    fullSizeImageCaption.textContent = this._name;
     openPopup(imagePopup);
   }
 
-  _deleteCard(e) {
-    e.target.closest(".elements__element").remove();
+  _deleteCard() {
+    this._element.remove();
+    this._element = null;
   }
 
-  _toggleLike(e) {
-    e.target.classList.toggle("elements__heart_liked");
+  _toggleLike() {
+    this._buttonLike.classList.toggle("elements__heart_liked");
   }
 }
 

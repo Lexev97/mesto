@@ -96,8 +96,12 @@ const handleCardFormSubmit = (e) => {
   closePopup(cardPopup);
 };
 
+const createCard = (card, cardId) => {
+  return new Card(card, cardId);
+}
+
 const renderCard = (card) => {
-  const newCard = new Card(card, "#place-card");
+  const newCard = createCard(card, "#place-card");
   cardsGrid.prepend(newCard.createCard());
 };
 
@@ -111,7 +115,7 @@ closeButtons.forEach((button) => {
   const popup = button.closest(".popup");
   button.addEventListener("click", () => closePopup(popup));
   popup.addEventListener("click", (e) => {
-    if (e.target.tagName === "SECTION") {
+    if (e.target.classList.contains('popup')) {
       closePopup(popup);
     }
   });

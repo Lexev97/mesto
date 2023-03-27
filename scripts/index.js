@@ -98,13 +98,14 @@ const handleCardFormSubmit = (e) => {
   closePopup(cardPopup);
 };
 
-const createCard = (card, cardId) => {
-  return new Card(card, cardId);
+const createCard = (data, cardId) => {
+  const card = new Card(data, cardId);
+  return card.createCard();
 };
 
 const renderCard = (card) => {
   const newCard = createCard(card, "#place-card");
-  cardsGrid.prepend(newCard.createCard());
+  cardsGrid.prepend(newCard);
 };
 
 editProfileButton.addEventListener("click", openProfilePopup);

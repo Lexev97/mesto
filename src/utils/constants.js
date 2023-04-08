@@ -6,6 +6,10 @@ const selectors = {
   btnDisabledMod: "popup__save_disabled",
 };
 
+const imagePopup = document.querySelector(".image-popup");
+const fullSizeImage = imagePopup.querySelector(".popup__image");
+const fullSizeImageCaption = imagePopup.querySelector(".popup__caption");
+
 const forms = Array.from(document.forms);
 
 const editProfileButton = document.querySelector(".profile__edit");
@@ -26,7 +30,7 @@ const submitCardPopupButton = cardPopup.querySelector(".popup__form");
 
 const closeButtons = document.querySelectorAll(".popup__close");
 
-const cardsGrid = document.querySelector(".elements__grid");
+const cardsGrid = ".elements__grid";
 
 const karachaevsk = new URL("../images/karachaevsk.jpg", import.meta.url);
 const elbrus = new URL("../images/elbrus.jpg", import.meta.url);
@@ -80,4 +84,7 @@ export {
   closeButtons,
   cardsGrid,
   initialCards,
+  imagePopup,
+  fullSizeImage,
+  fullSizeImageCaption,
 };

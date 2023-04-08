@@ -2,6 +2,7 @@ import "./index.css";
 
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
+import Section from "../components/Section.js";
 import {
   selectors,
   forms,
@@ -21,7 +22,6 @@ import {
   cardsGrid,
   initialCards,
 } from "../utils/constants.js";
-
 
 const closeByEsc = (e) => {
   if (e.key === "Escape") {
@@ -64,15 +64,15 @@ const handleCardFormSubmit = (e) => {
   closePopup(cardPopup);
 };
 
-const createCard = (data, cardId) => {
-  const card = new Card(data, cardId);
+const createCard = (data, templateId) => {
+  const card = new Card(data, templateId);
   return card.createCard();
 };
 
-const renderCard = (card) => {
-  const newCard = createCard(card, "#place-card");
-  cardsGrid.prepend(newCard);
-};
+// const renderCard = (card) => {
+//   const newCard = createCard(card, "#place-card");
+//   cardsGrid.prepend(newCard);
+// };
 
 editProfileButton.addEventListener("click", openProfilePopup);
 submitProfilePopupButton.addEventListener("submit", handleProfileFormSubmit);
@@ -90,8 +90,21 @@ closeButtons.forEach((button) => {
   });
 });
 
-initialCards.forEach(renderCard);
+const cardsList = new Section(
+  {
+    items: initialCards,
+    renderer: (item) => {
+      const cardElement = createCard(item, "#place-card");
+      cardsList.setItem(cardElement);
+    },
+  },
+  cardsGrid
+);
+
+cardsList.renderItems();
+
+// initialCards.forEach(renderCard);
 forms.forEach((formElement) => {
-    const formValidator = new FormValidator(selectors, formElement);
-    formValidator.enableValidation();
-  });
+  const formValidator = new FormValidator(selectors, formElement);
+  formValidator.enableValidation();
+});

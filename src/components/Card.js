@@ -1,8 +1,9 @@
 import { openPopup } from "../pages/index.js";
-
-const imagePopup = document.querySelector(".image-popup");
-const fullSizeImage = imagePopup.querySelector(".popup__image");
-const fullSizeImageCaption = imagePopup.querySelector(".popup__caption");
+import {
+  imagePopup,
+  fullSizeImage,
+  fullSizeImageCaption,
+} from "../utils/constants";
 
 class Card {
   constructor(data, templateSelector) {

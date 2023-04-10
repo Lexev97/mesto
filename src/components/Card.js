@@ -1,15 +1,10 @@
-import { openPopup } from "../pages/index.js";
-import {
-  imagePopup,
-  fullSizeImage,
-  fullSizeImageCaption,
-} from "../utils/constants";
-
 class Card {
-  constructor(data, templateSelector) {
+  constructor(data, templateSelector, handleCardClick) {
+    this._data = data;
     this._name = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -49,10 +44,7 @@ class Card {
   }
 
   _openImagePopup() {
-    fullSizeImage.src = this._link;
-    fullSizeImage.alt = this._name;
-    fullSizeImageCaption.textContent = this._name;
-    openPopup(imagePopup);
+    this._handleCardClick(this._data);
   }
 
   _deleteCard() {

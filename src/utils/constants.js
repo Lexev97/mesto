@@ -6,9 +6,9 @@ const selectors = {
   btnDisabledMod: "popup__save_disabled",
 };
 
-const imagePopup = document.querySelector(".image-popup");
-const fullSizeImage = imagePopup.querySelector(".popup__image");
-const fullSizeImageCaption = imagePopup.querySelector(".popup__caption");
+const imagePopup = ".image-popup";
+const fullSizeImage = ".popup__image";
+const fullSizeImageCaption = ".popup__caption";
 
 const forms = Array.from(document.forms);
 
@@ -28,7 +28,7 @@ const placeNameInput = cardPopup.querySelector("#place-name");
 const imgLinkInput = cardPopup.querySelector("#img-link");
 const submitCardPopupButton = cardPopup.querySelector(".popup__form");
 
-const closeButtons = document.querySelectorAll(".popup__close");
+const closeButton = ".popup__close";
 
 const cardsGrid = ".elements__grid";
 
@@ -81,7 +81,7 @@ export {
   placeNameInput,
   imgLinkInput,
   submitCardPopupButton,
-  closeButtons,
+  closeButton,
   cardsGrid,
   initialCards,
   imagePopup,

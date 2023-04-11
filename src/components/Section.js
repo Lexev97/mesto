@@ -10,9 +10,11 @@ class Section {
   }
 
   renderItems() {
-    this._itemsArray.forEach((item) => {
+    Array.isArray(this._itemsArray) 
+    ? this._itemsArray.forEach((item) => {
       this._renderer(item);
-    });
+    })
+    : this._renderer(this._itemsArray)
   }
 }
 

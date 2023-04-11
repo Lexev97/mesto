@@ -14,22 +14,15 @@ const forms = Array.from(document.forms);
 
 const editProfileButton = document.querySelector(".profile__edit");
 const addNewPlaceButton = document.querySelector(".profile__add");
-const profileName = document.querySelector(".profile__name");
-const profileDescription = document.querySelector(".profile__description");
+const profileName = ".profile__name";
+const profileDescription = ".profile__description";
 
-const profilePopup = document.querySelector(".profile-popup");
-const profileNameInput = profilePopup.querySelector("#name-input");
-const profileDescriptionInput =
-  profilePopup.querySelector("#description-input");
-const submitProfilePopupButton = profilePopup.querySelector(".popup__form");
-
-const cardPopup = document.querySelector(".card-popup");
-const placeNameInput = cardPopup.querySelector("#place-name");
-const imgLinkInput = cardPopup.querySelector("#img-link");
-const submitCardPopupButton = cardPopup.querySelector(".popup__form");
-
+const profilePopup = ".profile-popup";
+const profileNameInput = document.querySelector("#name-input");
+const profileDescriptionInput = document.querySelector("#description-input");
+const popupForm = ".popup__form";
+const cardPopup = ".card-popup";
 const closeButton = ".popup__close";
-
 const cardsGrid = ".elements__grid";
 
 const karachaevsk = new URL("../images/karachaevsk.jpg", import.meta.url);
@@ -76,11 +69,8 @@ export {
   profilePopup,
   profileNameInput,
   profileDescriptionInput,
-  submitProfilePopupButton,
+  popupForm,
   cardPopup,
-  placeNameInput,
-  imgLinkInput,
-  submitCardPopupButton,
   closeButton,
   cardsGrid,
   initialCards,

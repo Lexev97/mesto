@@ -22,7 +22,6 @@ const profileNameInput = document.querySelector("#name-input");
 const profileDescriptionInput = document.querySelector("#description-input");
 const popupForm = ".popup__form";
 const cardPopup = ".card-popup";
-const closeButton = ".popup__close";
 const cardsGrid = ".elements__grid";
 
 const karachaevsk = new URL("../images/karachaevsk.jpg", import.meta.url);
@@ -71,7 +70,6 @@ export {
   profileDescriptionInput,
   popupForm,
   cardPopup,
-  closeButton,
   cardsGrid,
   initialCards,
   imagePopup,

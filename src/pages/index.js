@@ -26,40 +26,37 @@ const userInfo = new Userinfo({
   userNameSelector: profileName,
   descriptionSelector: profileDescription,
 });
+const editProfilePopup = new PopupWithForm(profilePopup, (e, formsData) => {
+  e.preventDefault();
+  const updatedUserInfo = {
+    name: formsData.firstInput,
+    description: formsData.secondInput,
+  };
+  userInfo.setUserInfo(updatedUserInfo);
+  editProfilePopup.close();
+});
+const createPlaceCardPopup = new PopupWithForm(cardPopup, (e, formsData) => {
+  e.preventDefault();
+  const cardInfo = {
+    name: formsData.firstInput,
+    link: formsData.secondInput,
+  };
+  const newCard = new Section(
+    { items: cardInfo, renderer: cardRenderer },
+    cardsGrid
+  );
+  newCard.renderItems();
+  createPlaceCardPopup.close();
+});
 
 const openProfilePopup = () => {
   profileNameInput.value = userInfo.getUserInfo().userName;
   profileDescriptionInput.value = userInfo.getUserInfo().description;
-  const editProfilePopup = new PopupWithForm(profilePopup, (e, formsData) => {
-    e.preventDefault();
-    const updatedUserInfo = {
-      name: formsData.editProfileForm.elements.nameInput.value,
-      description: formsData.editProfileForm.elements.descriptionInput.value,
-    };
-    userInfo.setUserInfo(updatedUserInfo);
-    editProfilePopup.close();
-  });
   editProfilePopup.open();
-  editProfilePopup.setEventListeners();
 };
 const openCardPopup = () => {
-  const createPlaceCardPopup = new PopupWithForm(cardPopup, (e, formsData) => {
-    e.preventDefault();
-    const cardInfo = {
-      name: formsData.addPlaceForm.elements.placeName.value,
-      link: formsData.addPlaceForm.elements.imgLink.value,
-    };
-    const newCard = new Section(
-      { items: cardInfo, renderer: cardRenderer },
-      cardsGrid
-    );
-    newCard.renderItems();
-    createPlaceCardPopup.close();
-  });
   createPlaceCardPopup.open();
-  createPlaceCardPopup.setEventListeners();
 };
-
 const cardRenderer = (item) => {
   const card = new Card(item, "#place-card", (data) => {
     const popup = new PopupWithImage(imagePopup);
@@ -69,9 +66,6 @@ const cardRenderer = (item) => {
   const cardElement = card.createCard();
   cardsList.setItem(cardElement);
 };
-
-editProfileButton.addEventListener("click", openProfilePopup);
-addNewPlaceButton.addEventListener("click", openCardPopup);
 
 const cardsList = new Section(
   {
@@ -87,3 +81,8 @@ forms.forEach((formElement) => {
   const formValidator = new FormValidator(selectors, formElement);
   formValidator.enableValidation();
 });
+
+editProfileButton.addEventListener("click", openProfilePopup);
+addNewPlaceButton.addEventListener("click", openCardPopup);
+editProfilePopup.setEventListeners();
+createPlaceCardPopup.setEventListeners();

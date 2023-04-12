@@ -1,8 +1,7 @@
-import { closeButton } from "../utils/constants.js";
-
 class Popup {
   constructor(popupSelector) {
     this._popupSelector = document.querySelector(popupSelector);
+    this._handleEscClose = this._handleEscClose.bind(this);
   }
 
   _handleEscClose(e) {
@@ -12,11 +11,11 @@ class Popup {
   }
 
   setEventListeners() {
-    const popup = this._popupSelector.closest(".popup");
-    const button = this._popupSelector.querySelector(closeButton);
-    button.addEventListener("click", () => this.close());
-    popup.addEventListener("click", (e) => {
-      if (e.target.classList.contains("popup")) {
+    this._popupSelector.addEventListener("click", (e) => {
+      if (
+        e.target.classList.contains("popup") ||
+        e.target.classList.contains("popup__close")
+      ) {
         this.close();
       }
     });
@@ -24,12 +23,12 @@ class Popup {
 
   open() {
     this._popupSelector.classList.add("popup_opened");
-    document.addEventListener("keydown", this._handleEscClose.bind(this));
+    document.addEventListener("keydown", this._handleEscClose);
   }
 
   close() {
     this._popupSelector.classList.remove("popup_opened");
-    document.removeEventListener("keydown", this._handleEscClose.bind(this));
+    document.removeEventListener("keydown", this._handleEscClose);
   }
 }
 

@@ -29,8 +29,8 @@ const userInfo = new Userinfo({
 const editProfilePopup = new PopupWithForm(profilePopup, (e, formsData) => {
   e.preventDefault();
   const updatedUserInfo = {
-    name: formsData.firstInput,
-    description: formsData.secondInput,
+    name: formsData.nameInput,
+    description: formsData.descriptionInput,
   };
   userInfo.setUserInfo(updatedUserInfo);
   editProfilePopup.close();
@@ -38,8 +38,8 @@ const editProfilePopup = new PopupWithForm(profilePopup, (e, formsData) => {
 const createPlaceCardPopup = new PopupWithForm(cardPopup, (e, formsData) => {
   e.preventDefault();
   const cardInfo = {
-    name: formsData.firstInput,
-    link: formsData.secondInput,
+    name: formsData.placeName,
+    link: formsData.imgLink,
   };
   const newCard = new Section(
     { items: cardInfo, renderer: cardRenderer },

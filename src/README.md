@@ -19,4 +19,4 @@ JavaScript, HTML5, CSS3, БЭМ, flex.
 - Возможность изменения аватара.
 
 ## Ссылка на сайт
-https://lexev97.github.io/mesto/index.html
+https://lexev97.github.io/mesto/

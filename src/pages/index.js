@@ -40,7 +40,10 @@ const editProfilePopup = new PopupWithForm(profilePopup, (e, formsData) => {
     name: formsData.nameInput,
     about: formsData.descriptionInput,
   };
-  userInfo.setUserInfo(updatedUserInfo);
+  api
+    .patchProfileInfo(updatedUserInfo)
+    .then((res) => userInfo.setUserInfo(res));
+
   editProfilePopup.close();
 });
 const createPlaceCardPopup = new PopupWithForm(cardPopup, (e, formsData) => {
@@ -65,6 +68,16 @@ const openProfilePopup = () => {
 const openCardPopup = () => {
   createPlaceCardPopup.open();
 };
+
+forms.forEach((formElement) => {
+  const formValidator = new FormValidator(selectors, formElement);
+  formValidator.enableValidation();
+});
+
+api.fetchUserInfo().then((res) => {
+  userInfo.setUserInfo(res);
+  profileAvatar.src = res.avatar;
+});
 api.getCardsfromServer().then((res) => {
   const cardsList = new Section(
     {
@@ -82,16 +95,6 @@ api.getCardsfromServer().then((res) => {
     cardsGrid
   );
   cardsList.renderItems();
-});
-
-forms.forEach((formElement) => {
-  const formValidator = new FormValidator(selectors, formElement);
-  formValidator.enableValidation();
-});
-
-api.fetchUserInfo().then((res) => {
-  userInfo.setUserInfo(res);
-  profileAvatar.src = res.avatar;
 });
 
 editProfileButton.addEventListener("click", openProfilePopup);

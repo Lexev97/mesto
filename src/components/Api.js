@@ -33,6 +33,25 @@ class Api {
       })
       .catch((err) => console.console.log(`Ошибка: ${err}`));
   }
+
+  patchProfileInfo(userData) {
+    return fetch(this._baseUrl + "/users/me", {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify({
+        name: userData.name,
+        about: userData.about,
+      }),
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          return Promise.reject(res.status);
+        }
+      })
+      .catch((err) => console.console.log(`Ошибка: ${err}`));
+  }
 }
 
 export default Api;

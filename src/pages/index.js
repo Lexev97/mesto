@@ -19,7 +19,6 @@ import {
   profilePopup,
   cardPopup,
   cardsGrid,
-  initialCards,
   imagePopup,
   profileAvatar,
 } from "../utils/constants.js";

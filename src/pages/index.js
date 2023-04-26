@@ -52,11 +52,25 @@ const createPlaceCardPopup = new PopupWithForm(cardPopup, (e, formsData) => {
     name: formsData.placeName,
     link: formsData.imgLink,
   };
-  const newCard = new Section(
-    { items: cardInfo, renderer: cardRenderer },
-    cardsGrid
-  );
-  newCard.renderItems();
+  api.postNewCard(cardInfo).then((res) => {
+    const newCard = new Section(
+      {
+        items: res,
+        renderer: (item) => {
+          const card = new Card(item, "#place-card", (data) => {
+            const popup = new PopupWithImage(imagePopup);
+            popup.open(data);
+            popup.setEventListeners();
+          });
+          const cardElement = card.createCard();
+          newCard.setItem(cardElement);
+        },
+      },
+      cardsGrid
+    );
+    newCard.renderItems();
+  });
+
   createPlaceCardPopup.close();
 });
 

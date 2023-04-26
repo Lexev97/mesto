@@ -52,6 +52,23 @@ class Api {
       })
       .catch((err) => console.console.log(`Ошибка: ${err}`));
   }
+
+  postNewCard(cardData) {
+    return fetch(this._baseUrl + "/cards", {
+      method: "POST",
+      headers: this._headers,
+      body: JSON.stringify({
+        name: cardData.name,
+        link: cardData.link
+      }),
+    }).then(res => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject(res.status);
+      }
+    }).catch(err => console.log(`Ошибка: ${err}`));
+  }
 }
 
 export default Api;

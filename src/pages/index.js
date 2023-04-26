@@ -21,6 +21,7 @@ import {
   cardsGrid,
   initialCards,
   imagePopup,
+  profileAvatar,
 } from "../utils/constants.js";
 
 const api = new Api({
@@ -65,32 +66,34 @@ const openProfilePopup = () => {
 const openCardPopup = () => {
   createPlaceCardPopup.open();
 };
-const cardRenderer = (item) => {
-  const card = new Card(item, "#place-card", (data) => {
-    const popup = new PopupWithImage(imagePopup);
-    popup.open(data);
-    popup.setEventListeners();
-  });
-  const cardElement = card.createCard();
-  cardsList.setItem(cardElement);
-};
-
-const cardsList = new Section(
-  {
-    items: initialCards,
-    renderer: cardRenderer,
-  },
-  cardsGrid
-);
-
-cardsList.renderItems();
+api.getCardsfromServer().then((res) => {
+  const cardsList = new Section(
+    {
+      items: res,
+      renderer: (item) => {
+        const card = new Card(item, "#place-card", (data) => {
+          const popup = new PopupWithImage(imagePopup);
+          popup.open(data);
+          popup.setEventListeners();
+        });
+        const cardElement = card.createCard();
+        cardsList.setItem(cardElement);
+      },
+    },
+    cardsGrid
+  );
+  cardsList.renderItems();
+});
 
 forms.forEach((formElement) => {
   const formValidator = new FormValidator(selectors, formElement);
   formValidator.enableValidation();
 });
 
-api.fetchUserInfo().then((res) => userInfo.setUserInfo(res));
+api.fetchUserInfo().then((res) => {
+  userInfo.setUserInfo(res);
+  profileAvatar.src = res.avatar;
+});
 
 editProfileButton.addEventListener("click", openProfilePopup);
 addNewPlaceButton.addEventListener("click", openCardPopup);

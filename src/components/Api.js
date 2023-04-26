@@ -19,6 +19,20 @@ class Api {
         console.log(`Ошибка: ${err}`);
       });
   }
+
+  getCardsfromServer() {
+    return fetch(this._baseUrl + "/cards", {
+      headers: this._headers,
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          return Promise.reject(res.status);
+        }
+      })
+      .catch((err) => console.console.log(`Ошибка: ${err}`));
+  }
 }
 
 export default Api;

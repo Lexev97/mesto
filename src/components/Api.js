@@ -59,15 +59,81 @@ class Api {
       headers: this._headers,
       body: JSON.stringify({
         name: cardData.name,
-        link: cardData.link
+        link: cardData.link,
       }),
-    }).then(res => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(res.status);
-      }
-    }).catch(err => console.log(`Ошибка: ${err}`));
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          return Promise.reject(res.status);
+        }
+      })
+      .catch((err) => console.log(`Ошибка: ${err}`));
+  }
+
+  deleteCard(cardId) {
+    return fetch(`${this._baseUrl}/cards/${cardId}`, {
+      method: "DELETE",
+      headers: this._headers,
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          return Promise.reject(res.status);
+        }
+      })
+      .catch((err) => console.log(`Ошибка: ${err}`));
+  }
+
+  putLike(cardId) {
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+      method: "PUT",
+      headers: this._headers,
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          return Promise.reject(res.status);
+        }
+      })
+      .catch((err) => console.log(`Ошибка: ${err}`));
+  }
+
+  deleteLike(cardId) {
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+      method: "DELETE",
+      headers: this._headers,
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          return Promise.reject(res.status);
+        }
+      })
+      .catch((err) => console.log(`Ошибка: ${err}`));
+  }
+
+  patchAvatar(avatarLink) {
+    console.log(avatarLink);
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar: avatarLink,
+      }),
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          return Promise.reject(res.status);
+        }
+      })
+      .catch((err) => console.log(`Ошибка: ${err}`));
   }
 }
 

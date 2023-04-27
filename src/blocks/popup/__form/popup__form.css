@@ -3,3 +3,7 @@
   flex-direction: column;
   gap: 20px;
 }
+
+label:nth-last-of-type(1) {
+  margin: 0 0 29px 0;
+}

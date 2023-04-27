@@ -1,9 +1,10 @@
 import Popup from "./Popup.js";
-import { popupForm, selectors } from "../utils/constants.js";
+import { cardPopup, popupForm, selectors } from "../utils/constants.js";
 
 class PopupWithForm extends Popup {
   constructor(popupSelector, submitForm) {
     super(popupSelector);
+    this._popupSelectorOnly = popupSelector;
     this._submitForm = submitForm;
     this._buttonElement = this._popupSelector.querySelector(
       selectors.saveBtnElement
@@ -30,6 +31,18 @@ class PopupWithForm extends Popup {
       .addEventListener("submit", (e) => {
         this._submitForm(e, this._getInputValues());
       });
+  }
+
+  savingProcess(isSaving) {
+    if (isSaving) {
+      this._buttonElement.textContent = "Сохранение...";
+    } else {
+      if (this._popupSelectorOnly === cardPopup) {
+        this._buttonElement.textContent = "Создать";
+      } else {
+        this._buttonElement.textContent = "Сохранить";
+      }
+    }
   }
 
   close() {

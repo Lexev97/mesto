@@ -13,7 +13,8 @@
   </header>
   <main class="content">
     <section class="profile" aria-label="Пользователь">
-      <img class="profile__avatar" src="./" alt="Аватар пользователя" />
+      <div class="profile__avatar" aria-label="Аватар пользователя">
+      </div>
       <div class="profile__info">
         <div class="profile__name-area">
           <h1 class="profile__name"></h1>
@@ -33,13 +34,13 @@
       <h2 class="popup__title">Редактировать профиль</h2>
       <form class="popup__form" name="editProfileForm" id="edit-profile-form" novalidate>
         <label>
-          <input class="popup__input" type="text" id="name-input" name="nameInput" placeholder="Имя" minlength="2" maxlength="40"
-            required />
+          <input class="popup__input" type="text" id="name-input" name="nameInput" placeholder="Имя" minlength="2"
+            maxlength="40" required />
           <span class="popup__input-error name-input-error"></span>
         </label>
         <label>
-          <input class="popup__input" type="text" id="description-input" name="descriptionInput" placeholder="Профессия" minlength="2"
-            maxlength="200" required />
+          <input class="popup__input" type="text" id="description-input" name="descriptionInput" placeholder="Профессия"
+            minlength="2" maxlength="200" required />
           <span class="popup__input-error description-input-error"></span>
         </label>
         <button type="submit" class="popup__save">Сохранить</button>
@@ -76,6 +77,29 @@
     </div>
   </section>
 
+  <section class="confirmation-popup popup" aria-label="Запрос на подтверждение удаления карточки">
+    <div class="popup__container">
+      <h2 class="popup__title">Вы уверены?</h2>
+      <button type="button" class="popup__save">Да</button>
+      <button type="button" class="popup__close" aria-label="Закрыть"></button>
+    </div>
+  </section>
+
+  <section class="avatar-popup popup" aria-label="Модальное окно для редактирование аватара">
+    <div class="popup__container">
+      <h2 class="popup__title">Обновить аватар</h2>
+      <form class="popup__form" name="editAvatarForm" id="edit-avatar-form" novalidate>
+        <label>
+          <input class="popup__input" type="url" id="avatar-link" name="avatarLink" placeholder="Ссылка на аватар"
+          required />
+        <span class="popup__input-error avatar-link-error"></span>
+        </label>
+       <button type="submit" class="popup__save">Сохранить</button>
+      </form>
+      <button type="button" class="popup__close" aria-label="Закрыть"></button>
+    </div>
+  </section>
+
   <footer class="footer">
     <p class="footer__copyright">© 2020 Mesto Russia</p>
   </footer>
@@ -85,7 +109,10 @@
       <button type="button" class="elements__trashcan" aria-label="Удалить"></button>
       <div class="elements__caption">
         <h2 class="elements__name"></h2>
-        <button type="button" class="elements__heart" aria-label="Нравится"></button>
+        <div class="elements__likes">
+          <button type="button" class="elements__heart" aria-label="Нравится"></button>
+          <p class="elements__likes-qty"></p>
+        </div>
       </div>
     </li>
   </template>

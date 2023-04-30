@@ -6,9 +6,7 @@ const selectors = {
   btnDisabledMod: "popup__save_disabled",
 };
 
-const imagePopup = ".image-popup";
-const fullSizeImage = ".popup__image";
-const fullSizeImageCaption = ".popup__caption";
+const imagePopupSelector = ".image-popup";
 
 const forms = Array.from(document.forms);
 
@@ -45,9 +43,7 @@ export {
   cardPopup,
   confirmationPopup,
   cardsGrid,
-  imagePopup,
-  fullSizeImage,
-  fullSizeImageCaption,
+  imagePopupSelector,
   profileAvatar,
   editAvatarButton,
   avatarPopup,

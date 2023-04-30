@@ -5,7 +5,9 @@ class Card {
     handleCardClick,
     handleItemDelete,
     handleLikeClick,
-    handleDislikeClick
+    handleDislikeClick,
+    checkForLikes,
+    checkForOwner
   ) {
     this._data = data;
     this._id = data._id;
@@ -16,6 +18,8 @@ class Card {
     this._handleItemDelete = handleItemDelete;
     this._handleLikeClick = handleLikeClick;
     this._handleDislikeClick = handleDislikeClick;
+    this._checkForLikes = checkForLikes;
+    this._checkForOwner = checkForOwner;
   }
 
   _getTemplate() {
@@ -29,9 +33,8 @@ class Card {
 
   createCard() {
     this._element = this._getTemplate();
-    this._element.id = this._id;
-    this._element.querySelector(".elements__likes-qty").textContent =
-      this._data.likes.length;
+    this._likesQty = this._element.querySelector(".elements__likes-qty");
+    this._likesQty.textContent = this._data.likes.length;
     this._cardImage = this._element.querySelector(".elements__image");
     this._setEventListeners();
 
@@ -39,16 +42,14 @@ class Card {
     this._cardImage.alt = this._name;
     this._element.querySelector(".elements__name").textContent = this._name;
 
-    if (
-      this._data.likes.find((item) => item._id === "7a021f64a5ec44f5f52b639c")
-    ) {
-      this._buttonLike.classList.toggle("elements__heart_liked");
-    }
-    if (this._data.owner._id !== "7a021f64a5ec44f5f52b639c") {
-      this._element.querySelector(".elements__trashcan").remove();
-    }
+    this._checkForLikes(this._data);
+    this._checkForOwner(this._data);
 
     return this._element;
+  }
+
+  removeTrashcan() {
+    this._element.querySelector(".elements__trashcan").remove();
   }
 
   _setEventListeners() {
@@ -71,7 +72,7 @@ class Card {
   }
 
   _openDeleteConfirmationPopup() {
-    this._handleItemDelete(this._element);
+    this._handleItemDelete(this._id);
   }
 
   _handleLikeProcess() {
@@ -82,12 +83,16 @@ class Card {
     } else {
       this._handleLikeClick(this._id);
     }
-    this._buttonLike.classList.toggle("elements__heart_liked");
   }
 
-  deleteCard(elementForDelete) {
-    elementForDelete.remove();
-    elementForDelete = null;
+  plusMinusLike(likesQty) {
+    this._buttonLike.classList.toggle("elements__heart_liked");
+    this._likesQty.textContent = likesQty;
+  }
+
+  deleteCard() {
+    this._element.remove();
+    this._element = null;
   }
 }
 

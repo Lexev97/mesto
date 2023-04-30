@@ -1,18 +1,18 @@
 import Popup from "./Popup.js";
-import { cardPopup, popupForm, selectors } from "../utils/constants.js";
+import {popupForm, selectors } from "../utils/constants.js";
 
 class PopupWithForm extends Popup {
   constructor(popupSelector, submitForm) {
     super(popupSelector);
-    this._popupSelectorOnly = popupSelector;
+    this._popupSelector = popupSelector;
     this._submitForm = submitForm;
-    this._buttonElement = this._popupSelector.querySelector(
-      selectors.saveBtnElement
-    );
+    this._buttonElement = this._popup.querySelector(selectors.saveBtnElement);
+    this._initialBtnText = this._buttonElement.textContent;
+    this._form = this._popup.querySelector(popupForm);
   }
 
   _getInputValues() {
-    this._inputsList = this._popupSelector.querySelectorAll(
+    this._inputsList = this._form.querySelectorAll(
       selectors.inputElement
     );
 
@@ -26,29 +26,22 @@ class PopupWithForm extends Popup {
 
   setEventListeners() {
     super.setEventListeners();
-    this._popupSelector
-      .querySelector(popupForm)
-      .addEventListener("submit", (e) => {
-        this._submitForm(e, this._getInputValues());
-      });
+    this._form.addEventListener("submit", (e) => {
+      this._submitForm(e, this._getInputValues());
+    });
   }
 
   savingProcess(isSaving) {
     if (isSaving) {
       this._buttonElement.textContent = "Сохранение...";
     } else {
-      if (this._popupSelectorOnly === cardPopup) {
-        this._buttonElement.textContent = "Создать";
-      } else {
-        this._buttonElement.textContent = "Сохранить";
-      }
+      this._buttonElement.textContent = this._initialBtnText;
     }
   }
 
   close() {
     super.close();
-    this._popupSelector.querySelector(popupForm).reset();
-    this._buttonElement.classList.add(selectors.btnDisabledMod);
+    this._form.reset();
     this._buttonElement.setAttribute("disabled", "");
   }
 }

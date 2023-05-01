@@ -9,8 +9,13 @@ class PopupWithConfirmation extends Popup {
     this._handleRemoving = this._handleRemoving.bind(this);
   }
 
+  open(card) {
+    super.open();
+    this._card = card;
+  }
+
   _handleRemoving() {
-    this._remover();
+    this._remover(this._card);
   }
 
   setEventListeners() {
@@ -20,12 +25,12 @@ class PopupWithConfirmation extends Popup {
     super.setEventListeners();
   }
 
-  close() {
-    super.close();
-    this._popup
-      .querySelector(selectors.saveBtnElement)
-      .removeEventListener("click", this._handleRemoving);
-  }
+  // close() {
+  //   super.close();
+  //   this._popup
+  //     .querySelector(selectors.saveBtnElement)
+  //     .removeEventListener("click", this._handleRemoving);
+  // }
 }
 
 export default PopupWithConfirmation;

@@ -1,5 +1,5 @@
 import Popup from "./Popup.js";
-import {popupForm, selectors } from "../utils/constants.js";
+import { popupForm, selectors } from "../utils/constants.js";
 
 class PopupWithForm extends Popup {
   constructor(popupSelector, submitForm) {
@@ -9,13 +9,10 @@ class PopupWithForm extends Popup {
     this._buttonElement = this._popup.querySelector(selectors.saveBtnElement);
     this._initialBtnText = this._buttonElement.textContent;
     this._form = this._popup.querySelector(popupForm);
+    this._inputsList = this._form.querySelectorAll(selectors.inputElement);
   }
 
   _getInputValues() {
-    this._inputsList = this._form.querySelectorAll(
-      selectors.inputElement
-    );
-
     this._formValues = {};
     this._inputsList.forEach(
       (input) => (this._formValues[input.name] = input.value)
@@ -42,7 +39,6 @@ class PopupWithForm extends Popup {
   close() {
     super.close();
     this._form.reset();
-    this._buttonElement.setAttribute("disabled", "");
   }
 }
 

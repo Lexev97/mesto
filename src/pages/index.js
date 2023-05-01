@@ -71,7 +71,7 @@ const createPlaceCardPopup = new PopupWithForm(cardPopup, (e, formsData) => {
     .postNewCard(cardInfo)
     .then((res) => {
       if (res.owner) {
-        newSection([res], cardsGrid);
+        newSection.renderItems([res], res.owner._id);
         createPlaceCardPopup.close();
       } else {
         return Promise.reject(res);
@@ -99,6 +99,30 @@ const editAvatarPopup = new PopupWithForm(avatarPopup, (e, formsData) => {
     .catch((err) => console.log(`Ошибка: ${err}`))
     .finally(() => editAvatarPopup.savingProcess(false));
 });
+const confirmDeletePopup = new PopupWithConfirmation(
+  confirmationPopup,
+  (card) => {
+    api
+      .deleteCard(card._id)
+      .then((res) => {
+        if (res.message === "Пост удалён") {
+          card.deleteCard();
+          confirmDeletePopup.close();
+        } else {
+          return Promise.reject(res);
+        }
+      })
+      .catch((err) => console.log(`Ошибка: ${err}`));
+  }
+);
+const newSection = new Section(
+  {
+    renderer: (item, userId) => {
+      newSection.setItem(createCard(item, userId));
+    },
+  },
+  cardsGrid
+);
 
 const openProfilePopup = () => {
   const inputValues = userInfo.getUserInfo();
@@ -112,45 +136,24 @@ const openCardPopup = () => {
 const openAvatarPopup = () => {
   editAvatarPopup.open();
 };
-const newSection = new Section(
-  {
-    renderer: (item) => {
-      newSection.setItem(createCard(item));
-    },
-  },
-  cardsGrid
-);
-
-const createCard = (item) => {
+const createCard = (item, userId) => {
   const card = new Card(
     item,
+    userId,
     "#place-card",
     (data) => {
       imagePopup.open(data);
     },
-    (idForDelete) => {
-      const deletePopup = new PopupWithConfirmation(confirmationPopup, () => {
-        api
-          .deleteCard(idForDelete)
-          .then((res) => {
-            if (res.message === "Пост удалён") {
-              card.deleteCard();
-              deletePopup.close();
-            } else {
-              return Promise.reject(res);
-            }
-          })
-          .catch((err) => console.log(`Ошибка: ${err}`));
-      });
-      deletePopup.open();
-      deletePopup.setEventListeners();
+    (card) => {
+      confirmDeletePopup.open(card);
     },
     (likeCardId) => {
       api
         .putLike(likeCardId)
         .then((res) => {
           if (res.likes) {
-            card.plusMinusLike(res.likes.length);
+            card.changeLikeFilling();
+            card.changeLikesAmount(res.likes.length);
           } else {
             return Promise.reject(res);
           }
@@ -162,37 +165,8 @@ const createCard = (item) => {
         .deleteLike(dislikeCardId)
         .then((res) => {
           if (res.likes) {
-            card.plusMinusLike(res.likes.length);
-          } else {
-            return Promise.reject(res);
-          }
-        })
-        .catch((err) => console.log(`Ошибка: ${err}`));
-    },
-    (dataForLikeChecking) => {
-      api
-        .fetchUserInfo()
-        .then((res) => {
-          if (res.name) {
-            if (
-              dataForLikeChecking.likes.find((item) => item._id === res._id)
-            ) {
-              card.plusMinusLike(dataForLikeChecking.likes.length);
-            }
-          } else {
-            return Promise.reject(res);
-          }
-        })
-        .catch((err) => console.log(`Ошибка: ${err}`));
-    },
-    (dataForOwnerChecking) => {
-      api
-        .fetchUserInfo()
-        .then((res) => {
-          if (res.name) {
-            if (dataForOwnerChecking.owner._id !== res._id) {
-              card.removeTrashcan();
-            }
+            card.changeLikeFilling();
+            card.changeLikesAmount(res.likes.length);
           } else {
             return Promise.reject(res);
           }
@@ -213,13 +187,12 @@ Promise.all([api.fetchUserInfo(), api.getCardsfromServer()])
     if (typeof info === "object" && typeof initialCards === "object") {
       userInfo.setUserInfo(info);
       userInfo.setUserAvatar(info);
-      newSection.renderItems(initialCards);
+      newSection.renderItems(initialCards, info._id);
     } else {
       return Promise.reject([info, initialCards]);
     }
   })
   .catch((err) => {
-    console.log(err);
     typeof err[0] === "object"
       ? console.log("Информация о пользователе успешно загружены")
       : console.log(`Ошибка загрузки данных профиля: ${err[0]}`);
@@ -235,3 +208,4 @@ editProfilePopup.setEventListeners();
 createPlaceCardPopup.setEventListeners();
 editAvatarPopup.setEventListeners();
 imagePopup.setEventListeners();
+confirmDeletePopup.setEventListeners();

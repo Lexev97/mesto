@@ -1,25 +1,23 @@
 class Card {
   constructor(
     data,
+    userId,
     templateSelector,
     handleCardClick,
     handleItemDelete,
     handleLikeClick,
-    handleDislikeClick,
-    checkForLikes,
-    checkForOwner
+    handleDislikeClick
   ) {
     this._data = data;
     this._id = data._id;
     this._name = data.name;
     this._link = data.link;
+    this._userId = userId;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
     this._handleItemDelete = handleItemDelete;
     this._handleLikeClick = handleLikeClick;
     this._handleDislikeClick = handleDislikeClick;
-    this._checkForLikes = checkForLikes;
-    this._checkForOwner = checkForOwner;
   }
 
   _getTemplate() {
@@ -42,14 +40,21 @@ class Card {
     this._cardImage.alt = this._name;
     this._element.querySelector(".elements__name").textContent = this._name;
 
-    this._checkForLikes(this._data);
-    this._checkForOwner(this._data);
+    if (this._data.owner._id !== this._userId) {
+      this._element.querySelector(".elements__trashcan").remove();
+    }
+
+    if (
+      this._data.likes
+        .map((item) => {
+          return item._id;
+        })
+        .includes(this._userId)
+    ) {
+      this._buttonLike.classList.add("elements__heart_liked");
+    }
 
     return this._element;
-  }
-
-  removeTrashcan() {
-    this._element.querySelector(".elements__trashcan").remove();
   }
 
   _setEventListeners() {
@@ -72,7 +77,7 @@ class Card {
   }
 
   _openDeleteConfirmationPopup() {
-    this._handleItemDelete(this._id);
+    this._handleItemDelete(this);
   }
 
   _handleLikeProcess() {
@@ -85,8 +90,11 @@ class Card {
     }
   }
 
-  plusMinusLike(likesQty) {
+  changeLikeFilling() {
     this._buttonLike.classList.toggle("elements__heart_liked");
+  }
+
+  changeLikesAmount(likesQty) {
     this._likesQty.textContent = likesQty;
   }
 

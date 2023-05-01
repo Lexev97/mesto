@@ -112,18 +112,15 @@ const openCardPopup = () => {
 const openAvatarPopup = () => {
   editAvatarPopup.open();
 };
-const newSection = (res, selector) => {
-  const section = new Section(
-    {
-      renderer: (item) => {
-        section.setItem(createCard(item));
-      },
+const newSection = new Section(
+  {
+    renderer: (item) => {
+      newSection.setItem(createCard(item));
     },
-    selector
-  );
+  },
+  cardsGrid
+);
 
-  section.renderItems(res);
-};
 const createCard = (item) => {
   const card = new Card(
     item,
@@ -216,7 +213,7 @@ Promise.all([api.fetchUserInfo(), api.getCardsfromServer()])
     if (typeof info === "object" && typeof initialCards === "object") {
       userInfo.setUserInfo(info);
       userInfo.setUserAvatar(info);
-      newSection(initialCards, cardsGrid);
+      newSection.renderItems(initialCards);
     } else {
       return Promise.reject([info, initialCards]);
     }
